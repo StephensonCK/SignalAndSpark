@@ -1,4 +1,4 @@
-.codex/
+.*/
 .agents/
 node_modules/
 .env
@@ -7,3 +7,4 @@ node_modules/
 preview*.png
 .DS_Store
 Thumbs.db
+
