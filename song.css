@@ -1,0 +1,19 @@
+.song-page{font-family:Arial,sans-serif;font-size:17px;line-height:1.75}.song-nav,.song-layout,.song-related{max-width:1160px;margin:auto;padding:32px 6%}.song-nav{display:flex;justify-content:space-between;gap:24px;font-family:var(--display);font-size:20px}.song-nav a,.song-related a{color:var(--cyan);min-height:44px;display:inline-flex;align-items:center}.song-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:70px}.song-cover{width:100%;height:auto;border:3px solid var(--text)}.song-page h1{font:400 30px/1.6 var(--brush);margin:24px 0;overflow-wrap:anywhere}.song-page h2{font:600 30px/1.3 var(--display)}.song-page audio{width:100%;height:44px}.song-page #lyrics{scroll-margin-top:24px}.song-page #lyrics p{margin-bottom:28px}.song-related a{margin-right:24px}.song-page a{text-underline-offset:4px}.song-page a:hover{text-decoration:underline}.song-page a:focus-visible{outline:3px solid var(--cyan)}@media(max-width:700px){.song-layout{grid-template-columns:1fr;gap:32px}.song-cover{max-width:360px}.song-page h1{font-size:26px}.song-nav{font-size:18px}}
+.song-related{display:block}.song-related a{white-space:normal}.song-layout>*{min-width:0}.song-page h1,.song-page h2{overflow-wrap:anywhere}
+.song-player{display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px 16px;align-items:center;padding:18px;background:#10182a;border-radius:4px;border:1px solid #294358;box-shadow:0 8px 24px #0003}
+.song-player button{min-height:44px;color:var(--text);border:1px solid #38516b;background:transparent;border-radius:3px;font:600 17px var(--display)}
+.song-player .song-toggle{background:#c32369;border:0;color:white;font-size:21px;height:48px}
+.song-player input{width:100%;min-width:0;min-height:28px;accent-color:var(--cyan);cursor:pointer}
+.song-times{display:flex;justify-content:space-between;font:13px Arial,sans-serif;color:var(--muted)}
+.song-player .song-mute{grid-column:1;min-width:76px;font-size:14px}.song-player #song-volume{justify-self:end;width:100px}
+.song-status{grid-column:1/-1;margin:0;font-size:14px;color:var(--text)}.song-status:empty{display:none}
+.sr-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.song-player :focus-visible{outline:3px solid var(--cyan);outline-offset:4px}
+/* The same controls fit the homepage dock and the lyrics dialog. */
+.player>.song-player{flex:1;min-width:220px;grid-template-columns:44px minmax(100px,1fr) 76px 80px;padding:8px 12px;gap:10px;background:transparent;border:0;box-shadow:none}
+.player>.song-player .song-toggle{height:44px}
+.player>.song-player .song-mute{grid-column:auto}
+.player>.song-player #song-volume{width:80px}
+.player>.song-player .song-status{grid-column:1/-1}
+@media(max-width:900px){.player>.song-player{grid-template-columns:44px minmax(80px,1fr);min-width:0}.player>.song-player .song-mute{grid-column:1}.player>.song-player #song-volume{width:90px}}
+@media(max-width:600px){.player>.song-player{order:5;flex-basis:calc(100% - 110px);padding:4px;grid-template-columns:44px minmax(70px,1fr)}#lyrics-player-slot .player>.song-player{flex-basis:100%}}

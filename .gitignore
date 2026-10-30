@@ -1,0 +1,9 @@
+.codex/
+.agents/
+node_modules/
+.env
+.env.*
+!.env.example
+preview*.png
+.DS_Store
+Thumbs.db
