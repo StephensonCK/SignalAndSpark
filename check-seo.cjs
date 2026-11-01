@@ -20,6 +20,6 @@ for(const file of pages){
  if(file.startsWith('songs/')){assert(html.includes('<audio controls'),file);assert(html.includes('id="lyrics"'),file);}
 }
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
-assert.equal((home.match(/class="record"/g)||[]).length,6);
-assert.equal((fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').match(/<loc>/g)||[]).length,7);
-console.log('PASS: seven unique pages, canonical tags, JSON-LD, local asset/link targets, static song cards, audio/lyrics, and sitemap entries.');
+assert.equal((home.match(/class="record"/g)||[]).length,7);
+assert.equal((fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').match(/<loc>/g)||[]).length,8);
+console.log('PASS: eight unique pages, canonical tags, JSON-LD, local asset/link targets, static song cards, audio/lyrics, and sitemap entries.');
