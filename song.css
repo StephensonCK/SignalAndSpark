@@ -17,3 +17,25 @@
 .player>.song-player .song-status{grid-column:1/-1}
 @media(max-width:900px){.player>.song-player{grid-template-columns:44px minmax(80px,1fr);min-width:0}.player>.song-player .song-mute{grid-column:1}.player>.song-player #song-volume{width:90px}}
 @media(max-width:600px){.player>.song-player{order:5;flex-basis:calc(100% - 110px);padding:4px;grid-template-columns:44px minmax(70px,1fr)}#lyrics-player-slot .player>.song-player{flex-basis:100%}}
+
+/* The lyrics dock is narrower than the viewport: give transport its own row. */
+#lyrics-player-slot .player{display:grid;grid-template-columns:52px minmax(0,1fr) 44px 44px;gap:12px;align-items:center}
+#lyrics-player-slot .player[hidden]{display:none}
+#lyrics-player-slot .player-meta{width:auto;min-width:0;overflow-wrap:anywhere}
+#lyrics-player-slot #previous,#lyrics-player-slot #next{order:initial}
+#lyrics-player-slot .player>.song-player{grid-column:1/-1;order:initial;min-width:0;width:100%;padding:8px 0;grid-template-columns:44px minmax(0,1fr) 76px 80px}
+#lyrics-player-slot .song-progress{min-width:0}
+#lyrics-player-slot .song-player .song-mute{grid-column:auto}
+#lyrics-player-slot .song-player #song-volume{width:100%}
+@media(max-width:600px){
+  #lyrics-player-slot .player{grid-template-columns:minmax(0,1fr) 44px 44px;gap:8px}
+  #lyrics-player-slot .player>.song-player{grid-template-columns:44px minmax(0,1fr);gap:10px 16px}
+  #lyrics-player-slot .song-player .song-mute{grid-column:1;min-width:0}
+  #lyrics-player-slot .song-player #song-volume{max-width:120px}
+}
+#lyrics-player-slot .player>img{grid-row:1;grid-column:1}
+#lyrics-player-slot .player-meta{grid-row:1;grid-column:2}
+#lyrics-player-slot #previous{grid-row:1;grid-column:3}
+#lyrics-player-slot #next{grid-row:1;grid-column:4}
+#lyrics-player-slot .player>.song-player{grid-row:2}
+@media(max-width:600px){#lyrics-player-slot .player-meta{grid-column:1}#lyrics-player-slot #previous{grid-column:2}#lyrics-player-slot #next{grid-column:3}}
