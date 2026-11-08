@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const root = __dirname;
+const tracks = require('node:vm').runInNewContext(fs.readFileSync(path.join(root,'tracks.js'),'utf8')+';tracks');
 const pages = ['index.html',...fs.readdirSync(path.join(root,'songs')).filter(f=>f.endsWith('.html')).map(f=>'songs/'+f)];
 const titles = new Set();
 for(const file of pages){
@@ -20,6 +21,6 @@ for(const file of pages){
  if(file.startsWith('songs/')){assert(html.includes('<audio controls'),file);assert(html.includes('id="lyrics"'),file);}
 }
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
-assert.equal((home.match(/class="record"/g)||[]).length,7);
-assert.equal((fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').match(/<loc>/g)||[]).length,8);
-console.log('PASS: eight unique pages, canonical tags, JSON-LD, local asset/link targets, static song cards, audio/lyrics, and sitemap entries.');
+assert.equal((home.match(/class="record"/g)||[]).length,tracks.length);
+assert.equal((fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').match(/<loc>/g)||[]).length,tracks.length+1);
+console.log('PASS: unique pages, canonical tags, JSON-LD, local asset/link targets, static song cards, audio/lyrics, and sitemap entries.');
