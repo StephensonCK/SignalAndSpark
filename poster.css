@@ -258,4 +258,4 @@ html{scroll-padding-top:90px}
 @media(max-width:900px){.featured-sleeve h2{font-size:21px}.section-heading h2{font-size:27px}.paper h2{font-size:24px}}
 @media(max-width:600px){.featured-sleeve h2{font-size:23px}.section-heading h2{font-size:clamp(18px,5.5vw,23px)}.paper h2{font-size:23px}.dialog-heading h2{font-size:19px}}
 
-.story{grid-template-columns:minmax(0,760px);justify-content:center}
+.story{grid-template-columns:minmax(0,1fr)}
