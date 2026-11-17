@@ -1,9 +1,7 @@
-const records = document.querySelector('#records');
-const audio = document.querySelector('#audio');
+const spotifySlot = document.querySelector('#spotify-slot');
 const player = document.querySelector('.player');
 const status = document.querySelector('#player-status');
 let current = -1;
-let request = 0;
 let playbackTrigger = null;
 let lyricIndex = 0;
 let lyricsTrigger = null;
@@ -12,31 +10,37 @@ const playerHome = player.parentNode;
 const lyricsPlay = document.querySelector('#lyrics-play');
 function updateButtons() {
   document.querySelectorAll('[data-play]').forEach(button => {
-    const active = Number(button.dataset.play) === current && !audio.paused;
-    button.setAttribute('aria-label', `${active ? 'Pause' : 'Play'} ${tracks[Number(button.dataset.play)].title}`);
-    const icon = button.querySelector('.play-disc') || button.querySelector('span');
-    if (icon) icon.textContent = active ? 'Ⅱ' : '▶';
+    const index = Number(button.dataset.play);
+    button.setAttribute('aria-label', `Listen to ${tracks[index].title} on Spotify`);
     const label = button.querySelector('[data-play-label]');
-    if (label) label.textContent = `${active ? 'Pause' : 'Play'} ${tracks[Number(button.dataset.play)].title}`;
+    if (label) label.textContent = 'Listen on Spotify';
   });
-  lyricsPlay.textContent = `${current === lyricIndex && !audio.paused ? 'Pause' : 'Play'} ${tracks[lyricIndex].title}`;
-  document.querySelectorAll('.record').forEach(card => card.classList.toggle('is-playing', Number(card.dataset.track) === current && !audio.paused));
+  lyricsPlay.textContent = `Listen to ${tracks[lyricIndex].title} on Spotify`;
+  document.querySelectorAll('.record').forEach(card => card.classList.toggle('is-playing', Number(card.dataset.track) === current && !player.hidden));
 }
-async function play(index) {
-  const token = ++request;
-  if (current === index && !audio.paused) { audio.pause(); return; }
+function play(index) {
   const track = tracks[index];
-  if (current !== index) { current = index; audio.src = `assets/${track.slug}.mp3`; }
-  else if (audio.error) audio.load();
+  if (current !== index || !spotifySlot.firstChild) {
+    const frame = document.createElement('iframe');
+    frame.className = 'spotify-embed';
+    frame.src = track.spotifyUrl.replace('/track/', '/embed/track/') + '?utm_source=generator';
+    frame.title = `Listen to ${track.title} on Spotify`;
+    frame.width = '100%'; frame.height = '152';
+    frame.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+    frame.allowFullscreen = true;
+    spotifySlot.replaceChildren(frame);
+  }
+  current = index;
   player.hidden = false;
   document.body.classList.add('has-player');
   document.querySelector('#player-title').textContent = track.title;
-  document.querySelector('#player-cover').src = `assets/${track.slug}.webp`;
-  status.textContent = 'LOADING TRACK…';
-  try { await audio.play(); } catch (error) {
-    if (token === request && error.name !== 'AbortError') status.textContent = 'CAN’T PLAY — PRESS PLAY TO RETRY';
-  }
+  document.querySelector('#player-spotify').href = track.spotifyUrl;
+  document.querySelector('#player-amazon').href = track.amazonUrl;
+  status.textContent = 'PRESS PLAY IN SPOTIFY BELOW';
+  updateButtons();
+  updatePlayerSpace();
 }
+
 document.addEventListener('click', event => {
   const button = event.target.closest('[data-play]');
   if (button) { playbackTrigger = button; play(Number(button.dataset.play)); }
@@ -58,14 +62,9 @@ document.addEventListener('click', event => {
     content.scrollTop = 0;
   }
 });
-audio.addEventListener('playing', () => { status.textContent = `Playing ${tracks[current].title}`; updateButtons(); });
-audio.addEventListener('pause', () => { status.textContent = current >= 0 ? `Paused: ${tracks[current].title}` : 'Ready to play'; updateButtons(); });
-audio.addEventListener('waiting', () => { status.textContent = 'BUFFERING TRACK…'; });
-audio.addEventListener('error', () => { status.textContent = 'TRACK UNAVAILABLE — SELECT A SONG TO RETRY'; updateButtons(); });
-audio.addEventListener('ended', () => play((current + 1) % tracks.length));
 document.querySelector('#previous').onclick = () => play((current - 1 + tracks.length) % tracks.length);
 document.querySelector('#next').onclick = () => play((current + 1) % tracks.length);
-document.querySelector('#close-player').onclick = () => { request++; audio.pause(); player.hidden = true; document.body.classList.remove('has-player'); (playbackTrigger || document.querySelector(`[data-play="${current}"]`)).focus(); };
+document.querySelector('#close-player').onclick = () => { spotifySlot.replaceChildren(); player.hidden = true; updateButtons(); updatePlayerSpace(); document.body.classList.remove('has-player'); (playbackTrigger || document.querySelector(`[data-play="${current}"]`)).focus(); };
 document.querySelector('#close-lyrics').onclick = () => document.querySelector('#lyrics-dialog').close();
 document.querySelector('#lyrics-dialog').addEventListener('click', event => { if (event.target === event.currentTarget) { const rect = event.currentTarget.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) event.currentTarget.close(); } });
 
@@ -104,3 +103,5 @@ addEventListener('scroll', () => {
 }, { passive: true });
 addEventListener('resize', updateSectionNavigation);
 updateSectionNavigation();
+
+updateButtons();

@@ -39,3 +39,19 @@
 #lyrics-player-slot #next{grid-row:1;grid-column:4}
 #lyrics-player-slot .player>.song-player{grid-row:2}
 @media(max-width:600px){#lyrics-player-slot .player-meta{grid-column:1}#lyrics-player-slot #previous{grid-column:2}#lyrics-player-slot #next{grid-column:3}}
+
+/* Official Spotify players and direct streaming links. */
+.spotify-embed{display:block;width:100%;min-width:0;height:152px;border:0;border-radius:12px;color-scheme:normal}
+.streaming-links{display:flex;flex-wrap:wrap;gap:8px 20px;margin:12px 0;font:600 18px/1.4 var(--display)}
+.streaming-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--cyan);text-underline-offset:4px}
+.streaming-links a:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.release-note{font:600 22px/1.4 var(--display);color:var(--cyan)}
+.player #spotify-slot{flex:1;min-width:260px}
+.player>.streaming-links{flex-basis:100%;margin:0}
+.player .player-meta{min-width:0;overflow-wrap:anywhere}
+#lyrics-player-slot .player{display:flex;flex-wrap:wrap}
+#lyrics-player-slot #spotify-slot{flex-basis:100%;min-width:0}
+@media(max-width:700px){.player #spotify-slot{flex-basis:100%;min-width:0;order:5}.player>.streaming-links{order:6}.player{max-height:75dvh;overflow-y:auto}}
+
+.player{flex-wrap:wrap}.player #spotify-slot{order:initial}.player>.streaming-links{order:10}
+@media(max-width:700px){.player #spotify-slot{order:8}.player .player-meta{flex:1;flex-basis:calc(100% - 170px)}.player #previous,.player #next,.player #close-player{order:initial}}
