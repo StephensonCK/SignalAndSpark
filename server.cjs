@@ -9,7 +9,7 @@ http.createServer((req,res) => {
   const file = path.resolve(root,'.' + (pathname === '/' ? '/index.html' : pathname));
   if (!file.startsWith(root + path.sep)) { res.writeHead(403).end(); return; }
   fs.stat(file,(err,stat) => {
-    if(err || !stat.isFile()) { res.writeHead(404).end('Not found'); return; }
+    if(err || !stat.isFile()) { fs.readFile(path.join(root,'404.html'),(e,page)=>{ res.writeHead(404,{'Content-Type':'text/html; charset=utf-8'}).end(e ? 'Not found' : page); }); return; }
     const headers = {'Content-Type':types[path.extname(file)] || 'application/octet-stream','Accept-Ranges':'bytes'};
     const range = req.headers.range;
     let start=0,end=stat.size-1,code=200;

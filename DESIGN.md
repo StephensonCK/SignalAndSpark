@@ -22,3 +22,6 @@ Keep the dark palette and unframed page, with a slight featured-release tilt and
 
 ## White paper iteration
 Featured release and story liner notes use warm white (#f3f1ec) with dark ink, pink accents, inset borders, slight angles, and shadows. Keep the midnight surroundings and dark lyrics dialog. No grain on paper or artwork.
+
+## Restyle pass (Nov 22)
+Pink is the single signature (play button, current nav item, swooshes); cyan is only a link/hover and eyebrow colour. Navigation is muted until current or hovered. Story body uses Barlow Condensed (the Arial fallback is retired) with a larger lead paragraph. Catalog shows one short link row per song; album links appear once under the section heading. Stray outlines and nav shadow removed. Rock Salt headings and swooshes are unchanged by preference. Label on pink measures 5.19:1.

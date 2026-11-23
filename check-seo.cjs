@@ -15,14 +15,14 @@ for(const file of pages){
  for(const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) JSON.parse(match[1]);
  for(const match of html.matchAll(/(?:href|src)="([^"#]+)"/g)){
    const link=match[1].split('#')[0];
-   if(/^(https?:|data:)/.test(link))continue;
+   if(/^(https?:|data:|mailto:)/.test(link))continue;
    assert(fs.existsSync(path.resolve(root,path.dirname(file),link)),`${file}: missing ${link}`);
  }
  if(file.startsWith('songs/')){const track=tracks.find(t=>file===`songs/${t.slug}.html`); assert(track,file); assert(html.includes(track.spotifyUrl.replace('/track/','/embed/track/')),file); assert(html.includes(track.amazonUrl),file); assert(!html.includes('<audio') && !html.includes('.mp3'),file);assert(html.includes('id="lyrics"'),file);}
 }
 const home=fs.readFileSync(path.join(root,'index.html'),'utf8');
 assert.equal((home.match(/class="record"/g)||[]).length,tracks.length);
-assert.equal((fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').match(/<loc>/g)||[]).length,tracks.length+1);
+assert.equal((fs.readFileSync(path.join(root,'sitemap.xml'),'utf8').match(/<loc>/g)||[]).length,tracks.length+2);
 console.log('PASS: unique pages, canonical tags, JSON-LD, local asset/link targets, static song cards, Spotify/lyrics, and sitemap entries.');
 
 assert(!home.includes('<audio') && !home.includes('.mp3'));

@@ -259,3 +259,55 @@ html{scroll-padding-top:90px}
 @media(max-width:600px){.featured-sleeve h2{font-size:23px}.section-heading h2{font-size:clamp(18px,5.5vw,23px)}.paper h2{font-size:23px}.dialog-heading h2{font-size:19px}}
 
 .story{grid-template-columns:minmax(0,1fr)}
+
+/* Catalog: one quiet line of links per song instead of four repeated ones. */
+.album-note{margin:0;font-size:20px;color:var(--muted)}
+.album-note a{color:var(--cyan);text-underline-offset:4px}
+.records{gap:44px 28px}
+.record-meta{padding:14px 0 0}
+.record h3{font-size:26px;line-height:1.15}
+.record h3 a{color:var(--text);text-decoration:none}
+.record h3 a:hover{color:var(--cyan)}
+.record-links{display:flex;flex-wrap:wrap;align-items:center;gap:0 18px;margin:2px 0 0;font:600 17px/1 var(--body);letter-spacing:.04em;text-transform:uppercase}
+.record-links a,.record-links .lyrics-button{display:inline-flex;align-items:center;min-height:44px;color:var(--muted);font:inherit;letter-spacing:inherit;text-transform:inherit;text-decoration:none;padding:0;background:none;border:0}
+.record-links a:hover,.record-links .lyrics-button:hover{color:var(--cyan)}
+.record .track-number{font-size:17px}
+@media(max-width:600px){.record h3{font-size:21px}.record-links{gap:0 14px;font-size:15px}}
+
+/* Restyle pass: pink is the one signature (play + current page); cyan is only a link/hover colour;
+   story body joins the site's text face; flat planes, no stray outlines or shadows. */
+#music:focus:not(:focus-visible){outline:0}
+nav.sound-note{box-shadow:none;border-bottom:1px solid #33475e}
+nav.sound-note a{color:var(--muted)}
+nav.sound-note a:hover,nav.sound-note a[aria-current]{color:var(--text)}
+.record .track-number{color:var(--muted)}
+.paper>p:not(.signature){font-family:var(--body);font-size:21px;line-height:1.55;max-width:34em}
+.paper>p:not(.signature):first-of-type{font-size:25px;line-height:1.4;color:var(--text)}
+.youtube-link,.paper-link{text-underline-offset:5px}
+.sound-note .hero-description{font-family:var(--body)}
+@media(max-width:600px){.paper>p:not(.signature){font-size:19px}.paper>p:not(.signature):first-of-type{font-size:22px}}
+.paper h2{width:fit-content}
+
+/* Story: tall poster of Jamie on the left, text on the right. */
+.story-poster{display:block;width:100%;max-width:300px;height:auto;margin:0 auto 32px}
+.story-lead>p{font-family:var(--body);font-size:25px;line-height:1.4;color:var(--text);margin-top:0}
+.story-body>p:not(.signature){font-family:var(--body);font-size:21px;line-height:1.55;max-width:none}
+@media(min-width:901px){
+.paper{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);column-gap:clamp(40px,6vw,96px);align-items:center;padding:12px 0}
+.paper>.story-poster{grid-row:1/span 2;margin:0;max-width:none}
+.paper>.story-lead,.paper>.story-body{grid-column:2;max-width:40em}
+.paper>.story-lead{align-self:end}.paper>.story-body{align-self:start}
+}
+@media(max-width:600px){.story-lead>p{font-size:22px}.story-body>p:not(.signature){font-size:19px}.story-poster{max-width:240px}}
+
+/* Plain pages: press & contact, 404. */
+.plain{max-width:720px;margin:0 auto;padding:64px 6% 96px}
+.plain h1{font-family:var(--brush);font-weight:400;font-size:clamp(30px,5vw,44px);line-height:1.5;margin:0 0 20px}
+.plain h2{font-family:var(--body);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:18px;color:var(--cyan);margin:40px 0 8px}
+.plain p,.plain li{font-size:21px;line-height:1.55}
+.plain-lead{font-size:25px!important;line-height:1.4!important}
+.plain a{color:var(--text);text-underline-offset:5px}.plain a:hover{color:var(--cyan)}
+.plain-back{margin:0 0 32px}.plain-back a{color:var(--muted);text-decoration:none}
+.plain-downloads{list-style:none;margin:0;padding:0}.plain-downloads li{margin:0}.plain-downloads a{display:inline-flex;min-height:44px;align-items:center}
+.plain a.plain-button{display:inline-flex;align-items:center;min-height:48px;padding:0 24px;text-decoration:none;color:#fff5ed}
+.join-link{text-underline-offset:5px}
